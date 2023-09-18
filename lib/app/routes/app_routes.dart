@@ -7,6 +7,12 @@ abstract class Routes {
   static const AUTH = _Paths.AUTH;
   static const CORE = _Paths.CORE;
   static const REGISTER = _Paths.REGISTER;
+  static const RESPONDEND = _Paths.RESPONDEND;
+  static const RESPONDENT = _Paths.RESPONDENT;
+  static const POSTER = _Paths.POSTER;
+  static const VIDEO = _Paths.VIDEO;
+  static const MODULE = _Paths.MODULE;
+  static const QUESTIONARY = _Paths.QUESTIONARY;
 }
 
 abstract class _Paths {
@@ -15,4 +21,10 @@ abstract class _Paths {
   static const AUTH = '/auth';
   static const REGISTER = '/register';
   static const CORE = '/core';
+  static const RESPONDEND = '/respondend';
+  static const RESPONDENT = '/respondent';
+  static const POSTER = '/poster';
+  static const VIDEO = '/video';
+  static const MODULE = '/module';
+  static const QUESTIONARY = '/questionary';
 }

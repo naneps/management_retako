@@ -5,12 +5,14 @@ class HeadingText extends StatelessWidget {
   String? leftText;
   String? rightText;
   double? fontSize;
+  Color? color;
   VoidCallback? onPressRightText;
   HeadingText({
     super.key,
     this.leftText,
     this.rightText,
     this.onPressRightText,
+    this.color,
     this.fontSize,
   });
 
@@ -23,9 +25,9 @@ class HeadingText extends StatelessWidget {
         Text(
           leftText!,
           style: TextStyle(
-            fontSize: fontSize ?? 16,
+            fontSize: fontSize ?? 14,
             fontWeight: FontWeight.w600,
-            color: ThemeApp.neutralColor,
+            color: color ?? ThemeApp.neutralColor,
           ),
         ),
         InkWell(
@@ -35,6 +37,7 @@ class HeadingText extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: fontSize ?? 14,
+              color: color ?? ThemeApp.neutralColor,
             ),
           ),
         )
