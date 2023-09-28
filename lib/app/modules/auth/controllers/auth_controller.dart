@@ -67,7 +67,7 @@ class AuthController extends GetxController {
       )
           .then((res) {
         if (res.user != null) {
-          Get.offAllNamed(Routes.CORE);
+          Get.offAllNamed(Routes.HOME);
         }
       });
 

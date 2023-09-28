@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:getx_pattern_starter/app/routes/app_pages.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -30,6 +31,14 @@ class HomeController extends GetxController {
       "icon": MdiIcons.book,
       "title": "Kelola Modul",
       "route": Routes.MODULE,
+    },
+    {
+      "icon": MdiIcons.logout,
+      "title": "Keluar",
+      "onTap": () {
+        FirebaseAuth.instance.signOut();
+        Get.offAllNamed(Routes.AUTH);
+      },
     },
   ];
 }

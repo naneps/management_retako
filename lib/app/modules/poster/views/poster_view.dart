@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:getx_pattern_starter/app/common/buttons/x_Icon_button.dart';
 import 'package:getx_pattern_starter/app/common/shape/rounded_container.dart';
 import 'package:getx_pattern_starter/app/common/ui/x_appbar.dart';
-import 'package:getx_pattern_starter/app/common/ui/xpicture.dart';
 import 'package:getx_pattern_starter/app/common/utils.dart';
 import 'package:getx_pattern_starter/app/modules/poster/bindings/poster_binding.dart';
 import 'package:getx_pattern_starter/app/modules/poster/views/form_poster_view.dart';
+import 'package:photo_view/photo_view.dart';
 
 import '../controllers/poster_controller.dart';
 
@@ -29,7 +29,7 @@ class PosterView extends GetView<PosterController> {
         child: Column(
           children: [
             XAppBar(
-              title: 'Kelola Video',
+              title: 'Kelola Poster',
               hasRightIcon: true,
             ),
             const SizedBox(
@@ -39,7 +39,6 @@ class PosterView extends GetView<PosterController> {
               child: StreamBuilder(
                 stream: controller.getPoster(),
                 builder: (context, snapshot) {
-                  print(snapshot.data);
                   if (snapshot.hasData) {
                     return ListView.separated(
                       separatorBuilder: (context, index) => const SizedBox(
@@ -49,12 +48,26 @@ class PosterView extends GetView<PosterController> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return RoundedContainer(
+                          color: Colors.transparent,
+                          hasBorder: true,
+                          borderColor: Colors.brown,
+                          borderWidth: 2,
                           child: Stack(
                             children: [
-                              XPicture(
-                                imageUrl: snapshot.data![index].url!,
-                                sizeWidth: Get.width,
-                                sizeHeight: Get.height / 3,
+                              RoundedContainer(
+                                width: Get.width,
+                                height: 300,
+                                color: Colors.transparent,
+                                child: PhotoView(
+                                  tightMode: true,
+                                  enablePanAlways: true,
+                                  backgroundDecoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                  ),
+                                  imageProvider:
+                                      Image.network(snapshot.data![index].url!)
+                                          .image,
+                                ),
                               ),
                               Positioned(
                                   right: 10,
@@ -62,11 +75,7 @@ class PosterView extends GetView<PosterController> {
                                     children: [
                                       //button edit dan hapus
                                       //button edit dan hapus
-                                      XIconButton(
-                                        icon: Icons.edit,
-                                        size: 25,
-                                        color: Colors.blueGrey,
-                                      ),
+
                                       XIconButton(
                                         icon: Icons.delete,
                                         size: 25,

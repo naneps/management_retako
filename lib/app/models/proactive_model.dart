@@ -72,11 +72,9 @@ class QuestionnaireProactiveModel {
   QuestionnaireProactiveModel.fromFirestore(DocumentSnapshot doc)
       : id = doc.id,
         category = doc['category'],
-        questions = List<QuestionModel>.from(
-          doc['questions'].map(
-            (question) => QuestionModel.fromJson(question),
-          ),
-        );
+        questions = doc['questions'].map<QuestionModel>((question) {
+          return QuestionModel.fromMap(question);
+        }).toList();
   toJson() {
     return {
       "category": category,
@@ -90,7 +88,7 @@ class QuestionnaireProactiveModel {
 
 class QuestionModel {
   final String statement;
-  final Map<String, String> answers;
+  Map<String, String>? answers;
   String? selectedAnswer;
   int? selectedWeight;
   RxBool isAnswered = false.obs;
@@ -121,13 +119,29 @@ class QuestionModel {
     );
   }
 
+  factory QuestionModel.fromMap(Map<String, dynamic> json) {
+    final statement = json['statement'] as String;
+    final answersMap = json['answers'] as Map<String, dynamic>;
+
+    final answers =
+        answersMap.map((key, value) => MapEntry(key, value as String));
+
+    return QuestionModel(
+      statement: statement,
+      answers: answers,
+      isAnswered: false.obs,
+    );
+  }
   // from firestore
   QuestionModel.fromFirestore(DocumentSnapshot doc)
-      : statement = doc['statement'],
-        answers = Map<String, String>.from(doc['answers']),
-        selectedAnswer = doc['selectedAnswer'],
-        selectedWeight = doc['selectedWeight'],
-        isAnswered = doc['isAnswered'];
+      : statement = doc['statement']
+            .toString(); // Use .toString() to convert the value to string
+  // answers = (doc['answers'] as Map<String, dynamic>)
+  //     .map((key, value) => MapEntry(key, value as String));
+
+  // selectedAnswer = doc['selectedAnswer'],
+  // selectedWeight = doc['selectedWeight'],
+  // isAnswered = doc['isAnswered'];
 
   toJson() {
     return {

@@ -15,6 +15,7 @@ class VideoController extends GetxController {
   final FireStorageServices _fireStorageServices = Get.find();
   final Rx<XFile> url = XFile('').obs;
   final RxString title = ''.obs;
+  RxBool isLoading = false.obs;
   Stream<List<ContentModel>> getVideo() {
     return firebase.collection('videos').snapshots().map((event) =>
         event.docs.map((e) => ContentModel.fromFireStore(e)).toList());
@@ -50,18 +51,21 @@ class VideoController extends GetxController {
         fileName: videoDocument.id,
         ref: 'videos',
         onUploading: () {
+          isLoading.value = true;
           Utils.loadingDialog();
         },
         onSuccess: (downloadUrl) async {
           await videoDocument.update({
             'url': downloadUrl,
           });
+          isLoading.value = false;
           url.value = XFile('');
           title.value = '';
           Get.back();
           Get.back();
         },
         onError: (e) {
+          isLoading.value = false;
           print(e);
         },
       );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_pattern_starter/app/common/shape/rounded_container.dart';
+import 'package:getx_pattern_starter/app/common/utils.dart';
 import 'package:getx_pattern_starter/app/models/respondent_model.dart';
 import 'package:getx_pattern_starter/app/modules/respondent/bindings/respondent_binding.dart';
 import 'package:getx_pattern_starter/app/modules/respondent/views/respondent_detail_view.dart';
@@ -18,6 +19,47 @@ class RespondentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return RoundedContainer(
       child: ListTile(
+        onLongPress: () {
+          // delete
+          //
+          Get.bottomSheet(RoundedContainer(
+            height: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Hapus Responden?"),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text("Batal"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Utils.confirmDialog(
+                            title: "Hapus Responden?",
+                            message:
+                                "Apakah anda yakin ingin menghapus responden ini?",
+                            onConfirm: () {
+                              respondent.delete();
+                              Get.back();
+                              Get.back();
+                            });
+                      },
+                      child: const Text("Hapus"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ));
+        },
         onTap: () {
           Get.to(
             () => const RespondentDetailView(),

@@ -81,6 +81,7 @@ class VideoView extends GetView<VideoController> {
                                     onConfirm: () {
                                       controller.deleteVideo(
                                           snapshot.data![index].id!);
+                                      Get.back();
                                     },
                                   );
                                 },

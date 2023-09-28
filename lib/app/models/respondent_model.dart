@@ -60,4 +60,9 @@ class RespondentModel {
         createdAt = doc['createdAt'];
 
   String get createdAtString => Utils.getFormattedDate(createdAt!);
+
+  // delete
+  delete() {
+    FirebaseFirestore.instance.collection('respondents').doc(id).delete();
+  }
 }

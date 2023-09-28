@@ -69,7 +69,4 @@ class QuestionSelfEfficiencyModel {
         questionText = doc['text'],
         options = List<String>.from(doc['options']),
         weights = List<int>.from(doc['weights']);
-  // isAnswered = doc['isAnswered'],
-  // selectedWeight = doc['selectedWeight'],
-  // selectedOption = doc['selectedOption'];
 }

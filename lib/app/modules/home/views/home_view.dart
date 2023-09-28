@@ -49,7 +49,11 @@ class HomeView extends GetView<HomeController> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.toNamed(controller.menus[index]['route']);
+                      if (controller.menus[index]['route'] != null) {
+                        Get.toNamed(controller.menus[index]['route']);
+                      } else if (controller.menus[index]['onTap'] != null) {
+                        controller.menus[index]['onTap']();
+                      }
                     },
                     child: RoundedContainer(
                       gradient: LinearGradient(

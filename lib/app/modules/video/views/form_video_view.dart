@@ -23,7 +23,7 @@ class FormVideoView extends GetView<VideoController> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Column(
+                child: ListView(
                   children: [
                     RoundedContainer(
                       width: Get.width,
@@ -75,14 +75,21 @@ class FormVideoView extends GetView<VideoController> {
               ),
             ),
             RoundedContainer(
-              margin: const EdgeInsets.all(10),
-              child: XButton(
-                text: 'Simpan',
-                onPressed: () {
-                  controller.addVideo();
-                },
-              ),
-            ),
+                margin: const EdgeInsets.all(10),
+                child: Obx(
+                  () {
+                    return controller.isLoading.value
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : XButton(
+                            text: 'Simpan',
+                            onPressed: () {
+                              controller.addVideo();
+                            },
+                          );
+                  },
+                )),
           ],
         ),
       ),
